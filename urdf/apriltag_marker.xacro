@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="apriltag_marker">
+
+  <!-- ROS xacro/urdf model of one apriltag marker with given
+       tag-family, ID, and size. The marker is modeled as a simple
+       box with outer xy diameter as specified, and z 1mm thickness.
+       The marker is centered and can be added to other xacro/urdf
+       models.
+
+       2014.11.24 - created
+
+       (C) 2014 fnh, hendrich@informatik.uni-hamburg.de
+
+       Usage:
+       <xacro:apriltag_marker namespace="doro/" name="apriltag13" parent="base_link" 
+              family="36h11" ID="13" size="0.05">
+         <origin xyz="0.2 0.3 05" rpy="0 0 3.14" />
+       </xacro:apriltag_marker>
+   -->
+
+  <xacro:macro name="apriltag_marker" params="namespace name parent family ID size *origin" >
+    <link name="${namespace}${name}">
+      <inertial>
+        <mass value="0.001" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+      </inertial>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 1.571" />
+        <geometry>
+          <box size="${size} ${size} 0.001" />
+        </geometry>
+      </collision>
+      <visual>
+        <!--<material name="red" />-->
+        <origin xyz="0 0 0" rpy="0 0 1.571" />
+        <geometry>
+          <box size="${size} ${size} 0.001" />
+        </geometry>      
+
+        <material name="apriltag_${family}/tag${family}_${ID}" >
+        <!-- we generate 5-digit numbers in the filenames; for 36h11 this means we need 2 leading zeros -->
+        <!--<texture filename="file://$(find tams_apriltags)/Media/materials/textures/tag${family}/tag36_11_0000${ID}.png" />-->
+	        <texture filename="file://$(find tams_apriltags)/Media/materials/textures/rviz/${family}/${ID}.png" />
+        </material>
+      </visual>
+    </link>
+    <!-- we use Gazebo material to put the texture onto the marker. Note mu1=mu2=0 for no friction. -->
+    <gazebo reference="${namespace}${name}">
+      <material>apriltag_${family}/tag${family}_${ID}</material> 
+      <!-- <material>Gazebo/Red</material> -->
+      <turnGravityOff>false</turnGravityOff>
+      <selfCollide>false</selfCollide>
+      <mu1>0</mu1>
+      <mu2>0</mu2>
+      <kp>1000000.0</kp>
+      <kd>1.0</kd>
+    </gazebo>
+    <joint name="${namespace}${name}_joint" type="fixed">
+      <insert_block name="origin" />
+      <parent link="${namespace}${parent}" />
+      <child link="${namespace}${name}" />
+    </joint>
+  </xacro:macro>
+
+</robot>

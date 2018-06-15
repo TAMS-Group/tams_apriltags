@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://www.ros.org/wiki/xacro"
+       name="apriltag_demo">
+
+  <xacro:include filename="$(find tams_apriltags)/urdf/apriltag_marker.xacro" />
+
+
+  <link name="world" />
+  <link name="doro/world" />
+  <joint name="hugo" type="fixed">
+    <parent link="world" />
+    <child  link="doro/world" />
+  </joint>
+
+  <xacro:apriltag_marker namespace="doro/" name="apriltag1" parent="world" family="36h11" ID="1" size="0.5"> 
+    <origin xyz="1 1 1" rpy=" 0 0 0" />
+  </xacro:apriltag_marker>
+
+  <xacro:apriltag_marker namespace="doro/" name="apriltag2" parent="world" family="36h11" ID="2" size="0.1"> 
+    <origin xyz="0.5 1 1" rpy=" 0 0 0" />
+  </xacro:apriltag_marker>
+
+  <xacro:apriltag_marker namespace="doro/" name="apriltag3" parent="world" family="36h11" ID="3" size="0.1"> 
+    <origin xyz="0.5 0.5 1" rpy=" 0 0 0.8" />
+  </xacro:apriltag_marker>
+
+</robot>
