@@ -20,7 +20,7 @@
 
   <!-- upload the robot xacro/urdf to the param server -->
   <param name="$(arg model_name)_description" 
-         command="$(find xacro)/xacro.py $(arg xacro_file)" />
+         command="$(find xacro)/xacro --inorder $(arg xacro_file)" />
 
 
 

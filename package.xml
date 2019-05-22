@@ -3,12 +3,12 @@
   <name>tams_apriltags</name>
   <version>0.0.1</version>
   <description>
-    This package provides a slightly modified version of the original
-    AprilTags detector, namely with the option to enable/disable
-    tracking at runtime.
+    This package provides URDF models and Collada meshes of
+    "apriltags cards" for use in Gazebo, Moveit!, 
+    and for visualization in rviz.
 
-    This package also provides URDF models of the 36h11 tags for use 
-    in Gazebo and visualization in rviz.
+    Due to problems with Gazebo, the current implementation uses
+    individual Collada 3D-meshes, one per Apriltag card.
  </description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 

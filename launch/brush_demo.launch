@@ -13,7 +13,7 @@
 
   <!-- upload the robot xacro/urdf to the param server -->
   <param name="robot_description" 
-         command="$(find xacro)/xacro.py $(find tams_apriltags)/urdf/hand_brush.xacro" />
+         command="$(find xacro)/xacro --inorder $(find tams_apriltags)/urdf/hand_brush.xacro" />
 
 
   <!-- start gazebo server:  gzserver/debug-->
@@ -41,7 +41,7 @@
         name="doro_state_publisher">
      <param name="publish_frequency" type="double" value="100.0" />
      <param name="tf_prefix" type="string" value="" />
-     <param name="robot_description" command="$(find xacro)/xacro.py $(find tams_apriltags)/urdf/apriltag_marker.xacro" />  
+     <param name="robot_description" command="$(find xacro)/xacro --inorder $(find tams_apriltags)/urdf/apriltag_marker.xacro" />  
      <remap from="joint_states" to="doro/joint_states" />
  </node>
 

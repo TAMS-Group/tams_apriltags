@@ -14,7 +14,7 @@
 
   <!-- upload the robot xacro/urdf to the param server -->
   <param name="robot_description" 
-         command="$(find xacro)/xacro.py $(find tams_apriltags)/urdf/april_cube_demo.xacro" />
+         command="$(find xacro)/xacro --inorder $(find tams_apriltags)/urdf/april_cube_demo.xacro" />
 
 
 
