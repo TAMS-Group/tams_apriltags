@@ -3,17 +3,27 @@
 This ROS package provides URDF models of thin cards with Apriltag textures, 
 plus some example objects with attached Apriltag markers.
 Adding a few markers to your robots or enviroments allows you 
-to text full vision pipelines based on the Apriltags (v1, v2, v3)
-detector.
+to test full vision pipelines based on the Apriltags detector.
 
-At the moment, All markers of the 16h5 and 36h11 tag families are included;
-but markers of the other families can be generated quickly if needed.
+All markers of the 16h5 and 36h11 tag families are included;
+markers of the other families can be generated quickly if needed.
 The implementation uses a set of 3D collada meshes,
 each one with the corresponding marker image as its texture.
 This should work in all recent versions of Gazebo and in rviz, 
 using ROS Kinetic or newer.
 
-## Installation:
+## Example
+
+A Pioneer and some AprilCubes in Gazebo:
+
+[Pioneer robot and AprilCubes in Gazebo](Media/surface/gazebo-aprilcubes.png)
+
+The AprilCubes in rviz:
+
+[AprilCubes in rviz](Media/surface/rviz-aprilcubes.png)
+
+
+## Installation
 
 Clone this repository into your workspace and run `catkin_make`.
 There are no nodes to build.
@@ -42,7 +52,7 @@ The slightly weird scaling is needed because the master Collada mesh
 has size (100 x 100 x 0.1) millimeters.
 
 
-## Notes:
+## Notes
 
 At the moment, only the 16h5 and 36h11 tag families are provided.
 Don't hesitate to edit and run the provided generation scripts
