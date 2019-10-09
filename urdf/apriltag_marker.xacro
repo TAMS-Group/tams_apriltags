@@ -55,7 +55,7 @@
       <kd>1.0</kd>
     </gazebo>
     <joint name="${namespace}${name}_joint" type="fixed">
-      <insert_block name="origin" />
+      <xacro:insert_block name="origin" />
       <parent link="${namespace}${parent}" />
       <child link="${namespace}${name}" />
     </joint>
