@@ -11,6 +11,7 @@
        The marker is centered and can be added to other xacro/urdf
        models.
 
+       2019.10.10 - fix Collada rotation, ooops
        2019.05.22 - switch to textured Collada meshes, needs Jade or higher
        2014.11.24 - created
 
@@ -31,13 +32,13 @@
         <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
       </inertial>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 1.571" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <box size="${size} ${size} 0.001" />
         </geometry>
       </collision>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 1.571" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <!-- use Python str to convert family name and to generate leading zeros -->
           <mesh filename="package://tams_apriltags/meshes/tag${str(family).replace( 'h', '_' )}_${str(ID).zfill(5)}.dae" scale="${10*size} ${10*size} 1"/>
