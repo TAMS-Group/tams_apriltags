@@ -27,4 +27,8 @@
     <origin xyz="0.5 0.5 1" rpy=" 0 0 0.8" />
   </xacro:apriltag_marker>
 
+  <xacro:apriltag_marker namespace="doro/" name="apriltag4" parent="world" family="16_05" ID="23" size="0.1"> 
+    <origin xyz="0.25 0.25 1" rpy=" 0 0 0.7" />
+  </xacro:apriltag_marker>
+
 </robot>
