@@ -6,22 +6,45 @@
        tag-family, ID, and size. The marker is modeled as a simple
        box with outer xy diameter as specified, and z 1mm thickness.
        The marker is centered and can be added to other xacro/urdf
-       models.
+       models. 
+       The parameter "include_borders" is used to indicate 
+       whether the one bit wide white borders are included in the 
+       size specification. If "include_borders" is set to true,
+       the actual size of the apriltag will be:
+       8/10*size in case of 36h11
+       6/8 *size in case of 16h5
+       This is due to the usage of the white border in the 
+       apriltag detection algorithm, even though its size
+       is not specified.
 
        2019.10.10 - fix Collada rotation, ooops
        2019.05.22 - switch to textured Collada meshes, needs Jade or higher
        2014.11.24 - created
-
+       2021.11.10 - added include_borders parameter 
        (C) 2014 fnh, hendrich@informatik.uni-hamburg.de
 
        Usage:
        <xacro:apriltag_marker namespace="doro/" name="apriltag13" parent="base_link" 
-              family="36_11" ID="00013" size="0.05">
+              family="36h11" ID="00013" size="0.05" include_borders="false">
          <origin xyz="0.2 0.3 05" rpy="0 0 3.14" />
        </xacro:apriltag_marker>
    -->
 
-  <xacro:macro name="apriltag_marker" params="namespace name parent family ID size *origin" >
+  <xacro:macro name="apriltag_marker" params="namespace name parent family ID size include_borders:=true *origin" >
+    
+    <xacro:if value="${include_borders == False}">
+      <xacro:if value="${family == '36h11'}">
+        <xacro:property name="mesh_size" value="${size/8*10}" />
+      </xacro:if>
+      <xacro:if value="${family == '16h5'}">
+        <xacro:property name="mesh_size" value="${size/6*8}" />
+      </xacro:if>
+    </xacro:if>
+    
+    <xacro:if value="${include_borders == True}">
+      <xacro:property name="mesh_size" value="${size}" />
+    </xacro:if>
+    
     <link name="${namespace}${name}">
       <inertial>
         <mass value="0.001" />
@@ -31,14 +54,14 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <box size="${size} ${size} 0.001" />
+          <box size="${mesh_size} ${mesh_size} 0.001" />
         </geometry>
       </collision>
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
           <!-- use Python str to convert family name and to generate leading zeros -->
-          <mesh filename="package://tams_apriltags/meshes/tag${str(family).replace( 'h', '_' )}_${str(ID).zfill(5)}.dae" scale="${10*size} ${10*size} 1"/>
+          <mesh filename="package://tams_apriltags/meshes/tag${str(family).replace( 'h', '_' )}_${str(ID).zfill(5)}.dae" scale="${10*mesh_size} ${10*mesh_size} 1"/>
         </geometry>
       </visual>
     </link>
