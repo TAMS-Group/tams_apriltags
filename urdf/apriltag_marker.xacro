@@ -33,19 +33,19 @@
        </xacro:apriltag_marker>
    -->
 
-  <xacro:macro name="apriltag_marker" params="namespace name parent family ID size apriltag_size:=-1 *origin" >
+  <xacro:macro name="apriltag_marker" params="namespace name parent family ID size:=0 apriltag_size:=0 *origin" >
     
     
-    <xacro:if value="${apriltag_size == -1}">
-      <xacro:property name="mesh_size" value="${apriltag_size}" />
+    <xacro:if value="${apriltag_size == 0}">
+      <xacro:property name="mesh_size" value="${size}" />
     </xacro:if>
     
-    <xacro:if value="${apriltag_size != -1}">
+    <xacro:if value="${apriltag_size != 0}">
       <xacro:if value="${family == '36h11'}">
-        <xacro:property name="mesh_size" value="${size/8*10}" />
+        <xacro:property name="mesh_size" value="${apriltag_size/8*10}" />
       </xacro:if>
       <xacro:if value="${family == '16h5'}">
-        <xacro:property name="mesh_size" value="${size/6*8}" />
+        <xacro:property name="mesh_size" value="${apriltag_size/6*8}" />
       </xacro:if>
     </xacro:if>
     
