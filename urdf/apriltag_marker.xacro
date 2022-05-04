@@ -4,7 +4,7 @@
 
   <!-- ROS xacro/urdf model of one apriltag marker with given
        tag-family, ID, and size of the mesh. Optionally, apriltag_size can be 
-       specified to calculate from it the size of the mesh. In this case the 
+       specified to calculate from it the size of the mesh. In this case, the 
        parameter "size" will be ignored. The marker is modeled as 
        a simple box with outer xy diameter as specified, and z 1mm thickness.
        The marker is centered and can be added to other xacro/urdf
@@ -26,20 +26,32 @@
        Usage:
        size - size of the mesh 
        apriltag_size - size of the apriltag. If this parameter is set, the size 
-       of the mesh will be re-calculated
+       of the mesh will be re-calculated as mentioned above
+
        <xacro:apriltag_marker namespace="doro/" name="apriltag13" parent="base_link" 
-              family="36h11" ID="00013" size="0.05" include_borders="false">
+              family="36h11" ID="00013" size="0.33" >
+         <origin xyz="0.2 0.3 05" rpy="0 0 3.14" />
+
+       <xacro:apriltag_marker namespace="doro/" name="apriltag14" parent="base_link" 
+              family="36h11" ID="00014" apriltag_size="0.5">
+         <origin xyz="0.2 0.3 05" rpy="0 0 3.14" />
+       </xacro:apriltag_marker>
+
+       The following definition does not make much sense and will produce the same result
+       as the one above with ID=00014, because the mesh is predefined and the size of the 
+       border will not be recalculated.
+       <xacro:apriltag_marker namespace="doro/" name="apriltag14" parent="base_link" 
+              family="36h11" ID="00014" size="0.33" apriltag_size="0.5">
          <origin xyz="0.2 0.3 05" rpy="0 0 3.14" />
        </xacro:apriltag_marker>
    -->
 
   <xacro:macro name="apriltag_marker" params="namespace name parent family ID size:=0 apriltag_size:=0 *origin" >
     
-    
+    <!-- Check in which way the size was specified -->
     <xacro:if value="${apriltag_size == 0}">
       <xacro:property name="mesh_size" value="${size}" />
     </xacro:if>
-    
     <xacro:if value="${apriltag_size != 0}">
       <xacro:if value="${family == '36h11'}">
         <xacro:property name="mesh_size" value="${apriltag_size/8*10}" />
@@ -49,7 +61,6 @@
       </xacro:if>
     </xacro:if>
     
-
     
     <link name="${namespace}${name}">
       <inertial>
