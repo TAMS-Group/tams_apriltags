@@ -42,9 +42,11 @@ roslaunch tams_apriltags april_cube_demo.launch
 ```
 
 See `apriltag_marker.xacro` for the actual Xacro macro and its parameters.
-You can specify marker name, tag family, tag ID, and the marker size.
-At the moment, the macro requires a parent object and generates the
-corresponding fixed joint.
+You can specify marker name, tag family, tag ID, and the marker size by using parameters
+"size" and "apriltag_size". In case of specifying both size parameters, the "size" parameter 
+will be recalculated. At the moment, the macro requires a parent object and generates 
+the corresponding fixed joint.
+
 
 Note the use of Python expressions (introduced in ROS Jade)
 to rewrite the tag family string and to ensure leading zeros for the tag ID.
